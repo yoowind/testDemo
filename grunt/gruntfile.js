@@ -35,10 +35,17 @@ module.exports = function (grunt) {
       }
     }
   });
-  // 加载任务的插件
+  // 加载任务的插件，告诉grunt我们将使用下面这些插件
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+ 
+	grunt.loadNpmTasks('grunt-contrib-watch');//检测文件添加修改 等
+	grunt.loadNpmTasks('grunt-nodemon');//监听app.js，有改动会自动重启
+	grunt.loadNpmTasks('grunt-concurrent');//针对慢任务，sass less
+	grunt.option('force', true);//不因为语法问题中断服务
+  //告诉grunt我们在终端输入grunt时需要做些什么【有先后顺序】
+	grunt.registerTask('default',['concurrent']);//注册任务
   // 压缩图片任务
   grunt.registerTask('images', ['clean', 'imagemin']);
 
